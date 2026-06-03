@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ accion }} Paciente{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-900 mb-8">{{ accion }} Paciente</h1>
+
+    <form method="post" class="bg-white rounded-xl shadow-sm border p-6 space-y-5">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="text-red-500 text-xs mt-1">{{ field.errors.0 }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex gap-3 pt-2">
+            <button type="submit" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium transition">
+                Guardar
+            </button>
+            <a href="{% url 'pacientes:lista' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2.5 rounded-lg text-sm font-medium transition text-center">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        if (el.tagName === 'SELECT') el.className = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent';
+        else if (el.type === 'checkbox' || el.type === 'radio') {}
+        else el.className = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent';
+    });
+    document.querySelectorAll('textarea').forEach(el => {
+        el.className = 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent';
+    });
+</script>
+{% endblock %}

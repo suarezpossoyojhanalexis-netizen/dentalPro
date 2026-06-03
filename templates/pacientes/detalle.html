@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}{{ patient.last_name }}, {{ patient.first_name }}{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="flex items-center justify-between mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">{{ patient.last_name }}, {{ patient.first_name }}</h1>
+        <div class="flex gap-2">
+            <a href="{% url 'pacientes:editar' patient.pk %}" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">Editar</a>
+            <a href="{% url 'pacientes:eliminar' patient.pk %}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition">Eliminar</a>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+        <div class="px-6 py-5 border-b bg-gray-50">
+            <h2 class="text-lg font-semibold text-gray-800">Información General</h2>
+        </div>
+        <dl class="divide-y divide-gray-100">
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Nombre</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.first_name }} {{ patient.last_name }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Cédula</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.cedula }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Fecha de nacimiento</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.birth_date|date:"d/m/Y" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Teléfono</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.phone|default:"—" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Correo</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.email|default:"—" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Dirección</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.address|default:"—" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Tipo de sangre</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.blood_type|default:"—" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Alergias</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.allergies|default:"Ninguna" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Notas médicas</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.medical_notes|default:"—" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Registrado</dt>
+                <dd class="col-span-2 text-sm text-gray-500">{{ patient.created_at|date:"d/m/Y H:i" }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Actualizado</dt>
+                <dd class="col-span-2 text-sm text-gray-500">{{ patient.updated_at|date:"d/m/Y H:i" }}</dd>
+            </div>
+        </dl>
+    </div>
+
+    <div class="mt-6">
+        <a href="{% url 'pacientes:lista' %}" class="text-sky-600 hover:text-sky-800 font-medium">&larr; Volver a pacientes</a>
+    </div>
+</div>
+{% endblock %}
