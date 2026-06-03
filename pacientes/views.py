@@ -1,7 +1,9 @@
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.db.models import Q
 from .models import Patient
+from .forms import PatientForm
 
 
 class PatientListView(ListView):
@@ -11,8 +13,8 @@ class PatientListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        qs = Patient.objects.filter(is_active=True)
         q = self.request.GET.get('q', '').strip()
+        qs = Patient.objects.filter(is_active=True)
         if q:
             qs = qs.filter(
                 Q(first_name__icontains=q) |
@@ -30,12 +32,8 @@ class PatientListView(ListView):
 
 class PatientCreateView(CreateView):
     model = Patient
+    form_class = PatientForm
     template_name = 'pacientes/formulario.html'
-    fields = [
-        'first_name', 'last_name', 'cedula', 'birth_date',
-        'phone', 'email', 'address', 'blood_type',
-        'allergies', 'medical_notes',
-    ]
     success_url = reverse_lazy('pacientes:lista')
 
     def get_context_data(self, **kwargs):
@@ -55,12 +53,8 @@ class PatientDetailView(DetailView):
 
 class PatientUpdateView(UpdateView):
     model = Patient
+    form_class = PatientForm
     template_name = 'pacientes/formulario.html'
-    fields = [
-        'first_name', 'last_name', 'cedula', 'birth_date',
-        'phone', 'email', 'address', 'blood_type',
-        'allergies', 'medical_notes',
-    ]
     success_url = reverse_lazy('pacientes:lista')
 
     def get_queryset(self):
@@ -81,7 +75,8 @@ class PatientDeleteView(DeleteView):
     def get_queryset(self):
         return Patient.objects.filter(is_active=True)
 
-    def form_valid(self, form):
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         self.object.is_active = False
         self.object.save(update_fields=['is_active'])
-        return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
