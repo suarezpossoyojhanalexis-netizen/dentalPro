@@ -70,6 +70,18 @@ class PatientModelTest(TestCase):
         p = Patient.objects.create(**{**self.data, 'eps': 'SURA'})
         self.assertEqual(p.eps, 'SURA')
 
+    def test_companion_fields_blank_by_default(self):
+        p = Patient.objects.create(**self.data)
+        self.assertEqual(p.companion_name, '')
+        self.assertEqual(p.companion_phone, '')
+
+    def test_companion_fields_can_be_set(self):
+        p = Patient.objects.create(**{
+            **self.data, 'companion_name': 'María López', 'companion_phone': '3001234567'
+        })
+        self.assertEqual(p.companion_name, 'María López')
+        self.assertEqual(p.companion_phone, '3001234567')
+
 
 class PatientListViewTest(TestCase):
     def setUp(self):

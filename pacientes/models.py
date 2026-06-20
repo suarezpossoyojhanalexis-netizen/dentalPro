@@ -29,6 +29,8 @@ class Patient(models.Model):
     cedula = models.CharField('Cédula', max_length=10, unique=True, validators=[cedula_validator])
     occupation = models.CharField('Ocupación', max_length=100, blank=True)
     eps = models.CharField('EPS', max_length=100, blank=True, help_text='EPS o régimen de salud al que pertenece el paciente')
+    companion_name = models.CharField('Nombre del acompañante', max_length=100, blank=True)
+    companion_phone = models.CharField('Teléfono del acompañante', max_length=15, blank=True)
     birth_date = models.DateField('Fecha de nacimiento')
     phone = models.CharField('Teléfono', max_length=15, blank=True)
     email = models.EmailField('Correo', blank=True)

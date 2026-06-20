@@ -36,6 +36,10 @@
                 <dd class="col-span-2 text-sm text-gray-900">{{ patient.eps|default:"—" }}</dd>
             </div>
             <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">Acompañante</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.companion_name|default:"—" }}{% if patient.companion_phone %} — {{ patient.companion_phone }}{% endif %}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
                 <dt class="text-sm font-medium text-gray-500">Fecha de nacimiento</dt>
                 <dd class="col-span-2 text-sm text-gray-900">{{ patient.birth_date|date:"d/m/Y" }}</dd>
             </div>
