@@ -13,8 +13,19 @@ class Patient(models.Model):
         ('O+', 'O+'), ('O-', 'O-'), ('AB+', 'AB+'), ('AB-', 'AB-'),
     ]
 
+    DOCUMENT_TYPE_CHOICES = [
+        ('CC', 'Cédula de Ciudadanía'),
+        ('CE', 'Cédula de Extranjería'),
+        ('TI', 'Tarjeta de Identidad'),
+        ('NIT', 'NIT'),
+        ('Pasaporte', 'Pasaporte'),
+    ]
+
     first_name = models.CharField('Nombre', max_length=100)
     last_name = models.CharField('Apellido', max_length=100)
+    document_type = models.CharField(
+        'Tipo de documento', max_length=20, choices=DOCUMENT_TYPE_CHOICES, default='CC'
+    )
     cedula = models.CharField('Cédula', max_length=10, unique=True, validators=[cedula_validator])
     birth_date = models.DateField('Fecha de nacimiento')
     phone = models.CharField('Teléfono', max_length=15, blank=True)

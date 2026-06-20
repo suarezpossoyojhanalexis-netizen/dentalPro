@@ -10,6 +10,7 @@ class PatientModelTest(TestCase):
         self.data = {
             'first_name': 'Ana',
             'last_name': 'García',
+            'document_type': 'CC',
             'cedula': '123456789',
             'birth_date': datetime.date(1985, 7, 22),
             'phone': '3001112233',
@@ -44,6 +45,14 @@ class PatientModelTest(TestCase):
     def test_default_is_active_true(self):
         p = Patient.objects.create(**self.data)
         self.assertTrue(p.is_active)
+
+    def test_document_type_defaults_to_cc(self):
+        p = Patient.objects.create(**self.data)
+        self.assertEqual(p.document_type, 'CC')
+
+    def test_document_type_can_be_changed(self):
+        p = Patient.objects.create(**{**self.data, 'document_type': 'CE'})
+        self.assertEqual(p.document_type, 'CE')
 
 
 class PatientListViewTest(TestCase):
@@ -85,6 +94,7 @@ class PatientCreateViewTest(TestCase):
         resp = self.client.post(reverse('pacientes:crear'), {
             'first_name': 'Luis',
             'last_name': 'Martínez',
+            'document_type': 'CC',
             'cedula': '987654321',
             'birth_date': '1990-01-15',
             'phone': '3005556677',
@@ -151,6 +161,7 @@ class PatientUpdateViewTest(TestCase):
         resp = self.client.post(reverse('pacientes:editar', args=[self.patient.pk]), {
             'first_name': 'Ana María',
             'last_name': 'García',
+            'document_type': 'CC',
             'cedula': '123456789',
             'birth_date': '1985-07-22',
             'phone': '3001112233',
@@ -267,6 +278,7 @@ class PatientFormTest(TestCase):
         form = PatientForm(data={
             'first_name': 'Ana',
             'last_name': 'García',
+            'document_type': 'CC',
             'cedula': '123456789',
             'birth_date': '1985-07-22',
             'phone': '3001112233',

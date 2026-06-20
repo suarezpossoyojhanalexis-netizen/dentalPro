@@ -20,7 +20,11 @@
                 <dd class="col-span-2 text-sm text-gray-900">{{ patient.first_name }} {{ patient.last_name }}</dd>
             </div>
             <div class="px-6 py-4 grid grid-cols-3 gap-4">
-                <dt class="text-sm font-medium text-gray-500">Cédula</dt>
+                <dt class="text-sm font-medium text-gray-500">Tipo de documento</dt>
+                <dd class="col-span-2 text-sm text-gray-900">{{ patient.get_document_type_display }}</dd>
+            </div>
+            <div class="px-6 py-4 grid grid-cols-3 gap-4">
+                <dt class="text-sm font-medium text-gray-500">N° de documento</dt>
                 <dd class="col-span-2 text-sm text-gray-900">{{ patient.cedula }}</dd>
             </div>
             <div class="px-6 py-4 grid grid-cols-3 gap-4">
