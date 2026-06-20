@@ -7,9 +7,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # La clave original quedó expuesta en el historial de git — debes rotarla.
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-clave-temporal-solo-para-desarrollo')
 
-DEBUG = True
+# DEBUG solo se activa explícitamente vía variable de entorno.
+# Por defecto False (seguro) si la variable no está definida.
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] if DEBUG else os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
