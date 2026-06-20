@@ -29,7 +29,7 @@ Está diseñado para que el odontólogo pierda menos tiempo en papeleo y más ti
 ## 🛠️ Stack Tecnológico (y por qué lo usamos)
 | Tecnología | Rol en el proyecto | Explicación sencilla |
 |---|---|---|
-| **Django 4.2** | Motor principal | Organiza datos, usuarios y seguridad de forma probada y estable |
+| **Django 5.2** | Motor principal | Organiza datos, usuarios y seguridad de forma probada y estable |
 | **SQLite** | Base de datos | Archivo local `.sqlite3`. No requiere instalación ni servidores |
 | **HTMX 1.9** | Interfaz dinámica | Hace que los botones y formularios respondan al instante sin JavaScript complejo |
 | **Tailwind CSS 3** | Diseño visual | Estilo moderno, limpio y adaptable a cualquier pantalla |
