@@ -2,8 +2,8 @@ from django.db import models
 from django.core.validators import RegexValidator
 
 cedula_validator = RegexValidator(
-    regex=r'^\d{6,10}$',
-    message='La cédula debe tener entre 6 y 10 dígitos.'
+    regex=r'^\d{5,15}$',
+    message='El número de documento debe tener entre 5 y 15 dígitos.'
 )
 
 
@@ -26,7 +26,7 @@ class Patient(models.Model):
     document_type = models.CharField(
         'Tipo de documento', max_length=20, choices=DOCUMENT_TYPE_CHOICES, default='CC'
     )
-    cedula = models.CharField('Cédula', max_length=10, unique=True, validators=[cedula_validator])
+    cedula = models.CharField('N° de documento', max_length=15, unique=True, validators=[cedula_validator])
     occupation = models.CharField('Ocupación', max_length=100, blank=True)
     eps = models.CharField('EPS', max_length=100, blank=True, help_text='EPS o régimen de salud al que pertenece el paciente')
     companion_name = models.CharField('Nombre del acompañante', max_length=100, blank=True)

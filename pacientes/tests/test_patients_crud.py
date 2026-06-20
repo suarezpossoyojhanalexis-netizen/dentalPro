@@ -23,13 +23,13 @@ class PatientModelTest(TestCase):
         self.assertEqual(Patient.objects.count(), 1)
         self.assertTrue(p.is_active)
 
-    def test_cedula_less_than_6_digits_fails(self):
-        p = Patient(**{**self.data, 'cedula': '12345'})
+    def test_cedula_less_than_5_digits_fails(self):
+        p = Patient(**{**self.data, 'cedula': '1234'})
         with self.assertRaises(ValidationError):
             p.full_clean()
 
-    def test_cedula_more_than_10_digits_fails(self):
-        p = Patient(**{**self.data, 'cedula': '12345678901'})
+    def test_cedula_more_than_15_digits_fails(self):
+        p = Patient(**{**self.data, 'cedula': '1234567890123456'})
         with self.assertRaises(ValidationError):
             p.full_clean()
 
@@ -139,7 +139,7 @@ class PatientCreateViewTest(TestCase):
             'birth_date': '1990-01-15',
         })
         self.assertEqual(resp.status_code, 200)
-        self.assertContains(resp, 'debe tener entre 6 y 10 dígitos')
+        self.assertContains(resp, 'debe tener entre 5 y 15 dígitos')
 
     def test_create_post_missing_required_field_shows_error(self):
         resp = self.client.post(reverse('pacientes:crear'), {
