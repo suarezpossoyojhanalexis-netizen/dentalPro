@@ -3,6 +3,8 @@ from .models import Patient
 
 
 class PatientForm(forms.ModelForm):
+    # Formulario conectado al modelo Patient.
+    # Django genera los campos automáticamente según el modelo.
     class Meta:
         model = Patient
         fields = [
@@ -12,6 +14,7 @@ class PatientForm(forms.ModelForm):
             'phone', 'email', 'address', 'blood_type',
             'allergies', 'medical_notes',
         ]
+        # Estilos personalizados para campos especiales (fecha, textarea)
         widgets = {
             'birth_date': forms.DateInput(
                 attrs={'type': 'date', 'class': 'w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent'}
@@ -28,6 +31,7 @@ class PatientForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        # Aplica el mismo estilo Tailwind a todos los campos de texto y selección
         super().__init__(*args, **kwargs)
         text_input_fields = ['first_name', 'last_name', 'cedula', 'phone', 'email']
         for field_name in text_input_fields:

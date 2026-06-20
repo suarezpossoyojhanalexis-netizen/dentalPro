@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
+# Validador para el número de documento.
+# Acepta entre 5 y 15 dígitos para soportar cédula, NIT, CE y pasaporte.
 cedula_validator = RegexValidator(
     regex=r'^\d{5,15}$',
     message='El número de documento debe tener entre 5 y 15 dígitos.'
@@ -8,11 +10,13 @@ cedula_validator = RegexValidator(
 
 
 class Patient(models.Model):
+    # Opciones para el tipo de sangre del paciente
     BLOOD_TYPE_CHOICES = [
         ('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'),
         ('O+', 'O+'), ('O-', 'O-'), ('AB+', 'AB+'), ('AB-', 'AB-'),
     ]
 
+    # Opciones para el tipo de documento de identidad colombiano
     DOCUMENT_TYPE_CHOICES = [
         ('CC', 'Cédula de Ciudadanía'),
         ('CE', 'Cédula de Extranjería'),
@@ -26,8 +30,10 @@ class Patient(models.Model):
     document_type = models.CharField(
         'Tipo de documento', max_length=20, choices=DOCUMENT_TYPE_CHOICES, default='CC'
     )
+    # Número de documento único. Usa el validador de arriba.
     cedula = models.CharField('N° de documento', max_length=15, unique=True, validators=[cedula_validator])
     occupation = models.CharField('Ocupación', max_length=100, blank=True)
+    # EPS del paciente. Texto libre porque la lista de EPS en Colombia cambia seguido.
     eps = models.CharField('EPS', max_length=100, blank=True, help_text='EPS o régimen de salud al que pertenece el paciente')
     companion_name = models.CharField('Nombre del acompañante', max_length=100, blank=True)
     companion_phone = models.CharField('Teléfono del acompañante', max_length=15, blank=True)
@@ -40,6 +46,7 @@ class Patient(models.Model):
     medical_notes = models.TextField('Notas médicas', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # Soft delete: si está en False el paciente se oculta pero no se borra
     is_active = models.BooleanField(default=True)
 
     class Meta:

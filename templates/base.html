@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DentalPro - {% block title %}Gestión Odontológica{% endblock %}</title>
     {% load static %}
+    <!-- Tailwind y HTMX cargados desde archivos locales para funcionar sin internet -->
     <script src="{% static 'tailwind/tailwind.min.js' %}"></script>
     <script src="{% static 'htmx/htmx.min.js' %}"></script>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Barra de navegación principal -->
     <nav class="bg-white shadow-sm border-b">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -22,6 +24,7 @@
         </div>
     </nav>
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Mensajes de confirmación (crear, editar, eliminar) -->
         {% if messages %}
         <div class="mb-6 space-y-2">
             {% for message in messages %}

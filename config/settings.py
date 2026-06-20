@@ -3,14 +3,17 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Usa variable de entorno en producción; fallback solo para desarrollo local.
-# La clave original quedó expuesta en el historial de git — debes rotarla.
+# Clave secreta: se lee desde variable de entorno.
+# En producción debes definir DJANGO_SECRET_KEY con una clave real.
+# La clave temporal de acá solo sirve para desarrollo local.
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-clave-temporal-solo-para-desarrollo')
 
-# DEBUG solo se activa explícitamente vía variable de entorno.
-# Por defecto False (seguro) si la variable no está definida.
+# Modo DEBUG: solo se activa si la variable DJANGO_DEBUG es exactamente "True".
+# Si no está definida, DEBUG queda en False (seguro para producción).
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
+# Hosts permitidos: en desarrollo acepta cualquiera.
+# En producción se lee de la variable DJANGO_ALLOWED_HOSTS (varios separados por coma).
 ALLOWED_HOSTS = ['*'] if DEBUG else os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split(',')
 
 INSTALLED_APPS = [
@@ -77,8 +80,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Carpeta donde tenemos los archivos estáticos (CSS, JS, imágenes)
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
+# Carpeta donde se copian al hacer collectstatic (para producción)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

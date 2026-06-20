@@ -9,12 +9,14 @@ from .forms import PatientForm
 
 
 class PatientListView(ListView):
+    # Muestra la lista de pacientes activos con paginación y búsqueda
     model = Patient
     template_name = 'pacientes/lista.html'
     context_object_name = 'patients'
     paginate_by = 20
 
     def get_queryset(self):
+        # Si el usuario escribió algo en el buscador, filtra por nombre, cédula o teléfono
         q = self.request.GET.get('q', '').strip()
         qs = Patient.objects.filter(is_active=True)
         if q:
@@ -33,6 +35,7 @@ class PatientListView(ListView):
 
 
 class PatientCreateView(SuccessMessageMixin, CreateView):
+    # Formulario para registrar un paciente nuevo
     model = Patient
     form_class = PatientForm
     template_name = 'pacientes/formulario.html'
@@ -46,6 +49,7 @@ class PatientCreateView(SuccessMessageMixin, CreateView):
 
 
 class PatientDetailView(DetailView):
+    # Muestra la ficha completa de un paciente (solo si está activo)
     model = Patient
     template_name = 'pacientes/detalle.html'
     context_object_name = 'patient'
@@ -55,6 +59,7 @@ class PatientDetailView(DetailView):
 
 
 class PatientUpdateView(SuccessMessageMixin, UpdateView):
+    # Formulario para editar los datos de un paciente existente
     model = Patient
     form_class = PatientForm
     template_name = 'pacientes/formulario.html'
@@ -71,6 +76,7 @@ class PatientUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class PatientDeleteView(DeleteView):
+    # Soft delete: marca al paciente como inactivo en vez de borrarlo
     model = Patient
     template_name = 'pacientes/confirmar_eliminar.html'
     context_object_name = 'patient'
