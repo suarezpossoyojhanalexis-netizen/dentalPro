@@ -27,6 +27,7 @@ class Patient(models.Model):
         'Tipo de documento', max_length=20, choices=DOCUMENT_TYPE_CHOICES, default='CC'
     )
     cedula = models.CharField('Cédula', max_length=10, unique=True, validators=[cedula_validator])
+    occupation = models.CharField('Ocupación', max_length=100, blank=True)
     birth_date = models.DateField('Fecha de nacimiento')
     phone = models.CharField('Teléfono', max_length=15, blank=True)
     email = models.EmailField('Correo', blank=True)

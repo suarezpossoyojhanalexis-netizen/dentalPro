@@ -4,6 +4,6 @@ from .models import Patient
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['last_name', 'first_name', 'document_type', 'cedula', 'phone', 'is_active']
+    list_display = ['last_name', 'first_name', 'document_type', 'cedula', 'occupation', 'phone', 'is_active']
     list_filter = ['is_active', 'blood_type', 'document_type']
     search_fields = ['first_name', 'last_name', 'cedula', 'phone']

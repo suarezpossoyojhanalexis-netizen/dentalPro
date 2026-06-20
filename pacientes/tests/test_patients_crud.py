@@ -54,6 +54,14 @@ class PatientModelTest(TestCase):
         p = Patient.objects.create(**{**self.data, 'document_type': 'CE'})
         self.assertEqual(p.document_type, 'CE')
 
+    def test_occupation_blank_by_default(self):
+        p = Patient.objects.create(**self.data)
+        self.assertEqual(p.occupation, '')
+
+    def test_occupation_can_be_set(self):
+        p = Patient.objects.create(**{**self.data, 'occupation': 'Ingeniero'})
+        self.assertEqual(p.occupation, 'Ingeniero')
+
 
 class PatientListViewTest(TestCase):
     def setUp(self):
