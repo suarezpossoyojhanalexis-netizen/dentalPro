@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.db.models import Q
 from .models import Patient
 from .forms import PatientForm
@@ -30,11 +32,12 @@ class PatientListView(ListView):
         return ctx
 
 
-class PatientCreateView(CreateView):
+class PatientCreateView(SuccessMessageMixin, CreateView):
     model = Patient
     form_class = PatientForm
     template_name = 'pacientes/formulario.html'
     success_url = reverse_lazy('pacientes:lista')
+    success_message = 'Paciente creado exitosamente.'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -51,11 +54,12 @@ class PatientDetailView(DetailView):
         return Patient.objects.filter(is_active=True)
 
 
-class PatientUpdateView(UpdateView):
+class PatientUpdateView(SuccessMessageMixin, UpdateView):
     model = Patient
     form_class = PatientForm
     template_name = 'pacientes/formulario.html'
     success_url = reverse_lazy('pacientes:lista')
+    success_message = 'Paciente actualizado exitosamente.'
 
     def get_queryset(self):
         return Patient.objects.filter(is_active=True)
@@ -79,4 +83,5 @@ class PatientDeleteView(DeleteView):
         self.object = self.get_object()
         self.object.is_active = False
         self.object.save(update_fields=['is_active'])
+        messages.success(request, 'Paciente eliminado (desactivado) exitosamente.')
         return HttpResponseRedirect(self.get_success_url())
