@@ -69,16 +69,22 @@ python manage.py runserver --settings=config.settings.dev
 ---
 
 ## 📁 Estructura del Proyecto
+
+### Módulos implementados
 ```
 dentalpro/
 ├── config/           # Ajustes generales, rutas y seguridad
 ├── core/             # Plantillas base, estilos comunes y utilidades
 ├── pacientes/        # Fichas, historia clínica y odontograma
-├── citas/            # Calendario y recordatorios
-├── inventario/       # Control de materiales y alertas
-├── finanzas/         # Facturación y exportación DIAN
-├── media/            # Radiografías y fotos clínicas (almacenamiento local)
 ├── templates/        # Interfaz visual (HTML + Tailwind + HTMX)
 └── db.sqlite3        # Base de datos local (se crea sola)
+```
+
+### Módulos en desarrollo (roadmap)
+```
+├── citas/            # Calendario y recordatorios — en progreso
+├── inventario/       # Control de materiales y alertas — planeado
+├── finanzas/         # Facturación y exportación DIAN — planeado
+├── media/            # Radiografías y fotos clínicas — planeado
 ```
 C
