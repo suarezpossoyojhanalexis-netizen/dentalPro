@@ -1,8 +1,11 @@
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-chm%-dgb^_&%7yof96&0@*8va*hbn9@7fsbgm*4ixtps)gp0x)'
+# Usa variable de entorno en producción; fallback solo para desarrollo local.
+# La clave original quedó expuesta en el historial de git — debes rotarla.
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-clave-temporal-solo-para-desarrollo')
 
 DEBUG = True
 
