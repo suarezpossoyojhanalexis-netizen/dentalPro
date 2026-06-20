@@ -62,6 +62,14 @@ class PatientModelTest(TestCase):
         p = Patient.objects.create(**{**self.data, 'occupation': 'Ingeniero'})
         self.assertEqual(p.occupation, 'Ingeniero')
 
+    def test_eps_blank_by_default(self):
+        p = Patient.objects.create(**self.data)
+        self.assertEqual(p.eps, '')
+
+    def test_eps_can_be_set(self):
+        p = Patient.objects.create(**{**self.data, 'eps': 'SURA'})
+        self.assertEqual(p.eps, 'SURA')
+
 
 class PatientListViewTest(TestCase):
     def setUp(self):

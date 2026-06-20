@@ -28,6 +28,7 @@ class Patient(models.Model):
     )
     cedula = models.CharField('Cédula', max_length=10, unique=True, validators=[cedula_validator])
     occupation = models.CharField('Ocupación', max_length=100, blank=True)
+    eps = models.CharField('EPS', max_length=100, blank=True, help_text='EPS o régimen de salud al que pertenece el paciente')
     birth_date = models.DateField('Fecha de nacimiento')
     phone = models.CharField('Teléfono', max_length=15, blank=True)
     email = models.EmailField('Correo', blank=True)
