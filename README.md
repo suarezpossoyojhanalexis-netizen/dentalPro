@@ -87,4 +87,17 @@ dentalpro/
 ├── finanzas/         # Facturación y exportación DIAN — planeado
 ├── media/            # Radiografías y fotos clínicas — planeado
 ```
-C
+
+---
+
+## 📋 Cambios recientes
+
+### Auditoría módulo Pacientes (junio 2026)
+- **Seguridad**: `SECRET_KEY` y `DEBUG` ahora se leen de variables de entorno; `ALLOWED_HOSTS` se ajusta automáticamente.
+- **Offline-first**: Tailwind CSS y HTMX ahora se sirven desde `static/` en vez de CDN.
+- **Modelo Patient**: se agregaron campos tipo de documento (CC/CE/TI/NIT/Pasaporte), ocupación, EPS, acompañante (nombre y teléfono).
+- **Validación**: el número de documento acepta de 5 a 15 dígitos (soporta NIT y dígito de verificación).
+- **UX**: mensajes de confirmación al crear, editar y eliminar pacientes.
+- **Docs**: README actualizado con versión correcta de Django y módulos reales vs roadmap.
+
+Ver el historial completo de commits en la rama `mejora-pacientes`.
